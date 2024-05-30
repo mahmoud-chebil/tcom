@@ -1,8 +1,5 @@
 name: Flutter CI/CD
-permissions:
-  actions: write
-  contents: write
-  releases: write
+
 on:
   push:
     branches:
