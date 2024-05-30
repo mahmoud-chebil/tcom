@@ -26,15 +26,16 @@ jobs:
         run: flutter build apk
 
       - name: Get release ID
+        id: get_release_id
         uses: actions/github-script@v6
         with:
-          github-token: ${{ secrets.TOKEN_GITHUB}}
+          github-token: ${{ secrets.TOKEN_GITHUB }}
           script: |
-            const release = github.releases.getLatest({
+            const releases = await github.releases.list({
               owner: github.repository.owner.login,
-              repo: github.repository.name,
-              release_id: 'tcom'
+              repo: github.repository.name
             });
+            const release = releases.data.find(r => r.name === 'tcom');
             console.log(release.id);
             return release.id;
 
